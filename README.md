@@ -7,7 +7,7 @@ This is to explore using Tensorflow JS to operate on audio.
 ## Usage
 From the command line:
 ```
-  git clone TODO-change-to-repo-url;
+  git clone https://github.com/EvanBurnette/convert-audio-tfjs;
   pnpm install;
   pnpm vite;
 ```
