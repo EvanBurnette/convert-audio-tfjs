@@ -2,6 +2,9 @@ lockfileVersion: 5.4
 
 specifiers:
   '@tensorflow/tfjs': ^4.10.0
+  '@tensorflow/tfjs-backend-wasm': ^4.10.0
+  '@tensorflow/tfjs-backend-webgpu': ^4.10.0
+  '@tensorflow/tfjs-core': 4.10.0
   file-saver: ^2.0.5
   seedrandom: ^3.0.5
   vite: ^4.4.9
@@ -9,6 +12,9 @@ specifiers:
 
 dependencies:
   '@tensorflow/tfjs': 4.10.0_seedrandom@3.0.5
+  '@tensorflow/tfjs-backend-wasm': 4.10.0_p6jjjvzgdyth45k3xilulohy5i
+  '@tensorflow/tfjs-backend-webgpu': 4.10.0_p6jjjvzgdyth45k3xilulohy5i
+  '@tensorflow/tfjs-core': 4.10.0
   file-saver: 2.0.5
   seedrandom: 3.0.5
   vite: 4.4.9
@@ -225,6 +231,16 @@ packages:
       seedrandom: 3.0.5
     dev: false
 
+  /@tensorflow/tfjs-backend-wasm/4.10.0_p6jjjvzgdyth45k3xilulohy5i:
+    resolution: {integrity: sha512-lmlXycPstuyRl7HSGanfGuw329sbout90cN4EJnVgx1ZWsLuWIbPfpLPU18bdXGuK/4T4c2bBH5fXMyfdjVIBg==}
+    peerDependencies:
+      '@tensorflow/tfjs-core': 4.10.0
+    dependencies:
+      '@tensorflow/tfjs-backend-cpu': 4.10.0_p6jjjvzgdyth45k3xilulohy5i
+      '@tensorflow/tfjs-core': 4.10.0
+      '@types/emscripten': 0.0.34
+    dev: false
+
   /@tensorflow/tfjs-backend-webgl/4.10.0_p6jjjvzgdyth45k3xilulohy5i:
     resolution: {integrity: sha512-Vzl/pyXHa9TgFaRJGspExjZVDKgkKvLxOkPaH+psE2LPnQkiH/IOPO7HKO0U3+hZql977BIiZdHc6HNprFS3/A==}
     engines: {yarn: '>= 1.3.2'}
@@ -236,6 +252,15 @@ packages:
       '@types/offscreencanvas': 2019.3.0
       '@types/seedrandom': 2.4.30
       seedrandom: 3.0.5
+    dev: false
+
+  /@tensorflow/tfjs-backend-webgpu/4.10.0_p6jjjvzgdyth45k3xilulohy5i:
+    resolution: {integrity: sha512-vZT0bbKakJ+6NX4vOqIS6Vze6rNRHQwOxr2dtnGEzd+JmdGcT1FZzrEVOhdFVQ9lPqOoLzLm8zeWgtnqI7L4Kg==}
+    peerDependencies:
+      '@tensorflow/tfjs-core': 4.10.0
+    dependencies:
+      '@tensorflow/tfjs-backend-cpu': 4.10.0_p6jjjvzgdyth45k3xilulohy5i
+      '@tensorflow/tfjs-core': 4.10.0
     dev: false
 
   /@tensorflow/tfjs-converter/4.10.0_p6jjjvzgdyth45k3xilulohy5i:
@@ -302,6 +327,10 @@ packages:
     transitivePeerDependencies:
       - encoding
       - seedrandom
+    dev: false
+
+  /@types/emscripten/0.0.34:
+    resolution: {integrity: sha512-QSb9ojDincskc+uKMI0KXp8e1NALFINCrMlp8VGKGcTSxeEyRTTKyjWw75NYrCZHUsVEEEpr1tYHpbtaC++/sQ==}
     dev: false
 
   /@types/long/4.0.2:

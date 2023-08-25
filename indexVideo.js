@@ -1,3 +1,9 @@
+import { saveAs } from "file-saver";
+import { WaveFile } from "wavefile";
+import * as tf from "@tensorflow/tfjs";
+import '@tensorflow/tfjs-backend-webgpu';
+import '@tensorflow/tfjs-backend-wasm';
+
 let start, end;
 // get recording
 const recording_res = await fetch("./recording_with_noise.wav");
@@ -16,8 +22,20 @@ const convert_info = document.getElementById("convert_info");
 
 // update info
 og_info.innerText = `${recording.sampleRate}kHz ${recording.numberOfChannels} channel(s)`;
+document.getElementsByName('backend').forEach(backend=>{
+  backend.addEventListener('click', async (e)=>{
+    console.log(e.target.id)
+    try {
+      const changeBackend = await tf.setBackend(e.target.id);
+      main();
+    } catch {
+      //pass
+    }
+  })
+})
 
-import * as tf from "@tensorflow/tfjs";
+async function main () {
+  await tf.ready();
 const mono_floor_tensor = tf.tidy(() => {
   start = performance.now();
   // create a rank-2 tensor of shape [2, N] two channel audio of arbitrary length (time)
@@ -26,14 +44,14 @@ const mono_floor_tensor = tf.tidy(() => {
     recording.getChannelData(1),
   ]);
   end = performance.now();
-  stereo_tensor.print();
-  console.log(`loading into rank-2 tensor took ${end - start}ms`);
+  // stereo_tensor.print();
+  // console.log(`loading into rank-2 tensor took ${end - start}ms`);
 
   start = performance.now();
   // create a rank 1 (mono) tensor by summing along the 0th axis
   const mono_tensor = tf.div(stereo_tensor.sum(0), 2);
   end = performance.now();
-  mono_tensor.print();
+  // mono_tensor.print();
   console.log(`convert to mono took ${end - start}ms`);
 
   // change all values to positive
@@ -53,16 +71,15 @@ const mono_floor_tensor = tf.tidy(() => {
   const mono_floor_tensor = tf.floor(mono_8bit_tensor);
   end = performance.now();
   console.log(`noise gate and convert to int took ${end - start}ms`);
-  console.log("in tidy", tf.memory().numBytes / 2 ** 20, "MB");
-  console.log(tf.memory().numTensors);
+  // console.log(`in tidy ${(tf.memory().numBytes / 2 ** 20).toFixed(3)} MB`);
+  // console.log(tf.memory().numTensors);
   return mono_floor_tensor;
 });
 const monoArray = await mono_floor_tensor.array();
-console.log("after tidy", tf.memory().numBytes / 2 ** 20, "MB");
-console.log(tf.memory().numTensors);
+// console.log(`after tidy ${(tf.memory().numBytes / 2 ** 20).toFixed(3)} MB`);
+// console.log(tf.memory().numTensors);
 
 // create wave file
-import { WaveFile } from "wavefile";
 let output = new WaveFile();
 output.fromScratch(
   1,
@@ -82,8 +99,10 @@ const output_dataURI = output.toDataURI();
 const output_player = document.getElementById("output");
 output_player.setAttribute("src", output_dataURI);
 
-import { saveAs } from "file-saver";
 const download_btn = document.getElementById("download");
 download_btn.addEventListener("click", (e) => {
   saveAs(output_dataURI, "denoised_8bit.wav");
 });
+
+// console.log('tf compute type: ', tf.getBackend())
+}

@@ -11,6 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "@tensorflow/tfjs": "^4.10.0",
+    "@tensorflow/tfjs-backend-wasm": "^4.10.0",
+    "@tensorflow/tfjs-backend-webgpu": "^4.10.0",
+    "@tensorflow/tfjs-core": "4.10.0",
     "file-saver": "^2.0.5",
     "seedrandom": "^3.0.5",
     "vite": "^4.4.9",

@@ -14,9 +14,30 @@
     </style>
   </head>
   <body>
+    <fieldset>
+      <legend>
+        Select a tfjs backend
+      </legend>
+      <div>
+        <input type="radio" id="cpu" name="backend">
+        <label for="cpu">cpu</label>
+      </div>
+      <div>
+        <input type="radio" id="wasm" name="backend">
+        <label for="wasm">wasm</label>
+      </div>
+      <div>
+        <input type="radio" id="webgl" name="backend">
+        <label for="webgl">webgl</label>
+      </div>
+      <div>
+        <input type="radio" id="webgpu" name="backend">
+        <label for="webgpu">webgpu</label>
+      </div>
+    </fieldset>
     <p id="og_info">getting info...</p>
     <audio src="recording_with_noise.wav" controls></audio>
-    <p id="convert_info">converting...</p>
+    <p id="convert_info">Select a backend</p>
     <audio src="#" id="output" controls></audio><br />
     <button id="download">Download processed audio</button>
   </body>
